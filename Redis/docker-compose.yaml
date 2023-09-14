@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-password}
+    command: /bin/sh -c 'redis-server --appendonly yes --requirepass "$${REDIS_PASSWORD}"'
+    volumes:
+      - ./redis:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

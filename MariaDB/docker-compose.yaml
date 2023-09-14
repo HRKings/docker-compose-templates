@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    environment:
+       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-password}
+       MARIADB_DATABASE: ${MARIADB_DATABASE:-default_database}
+    volumes:
+       - ./mariadb:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped

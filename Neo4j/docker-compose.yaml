@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  neo4j:
+    container_name: neo4j
+    image: neo4j
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_USER:-password}
+    volumes:
+      - ./neo4j/conf:/conf
+      - ./neo4j/data:/data
+      - ./neo4j/import:/import
+      - ./neo4j/logs:/logs
+      - ./neo4j/plugins:/plugins
+    ports:
+      - 7474:7474
+      - 7687:7687
+    restart: unless-stopped
