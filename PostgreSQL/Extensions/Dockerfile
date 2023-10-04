@@ -2,8 +2,6 @@ FROM postgres:16 as build
 
 WORKDIR /tmp
 
-USER root
-
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends ca-certificates wget
