@@ -34,7 +34,7 @@ services:
       '--password=${DB_PASS}',
       '--contexts=$LIQUIBASE_CONTEXTS',
       '--log-level=${LOG_LEVEL-warn}',
-      '--data-output-directory=${OUT_DIR}',
+      '--data-output-directory=/tmp/out',
       '--changelog-file=/tmp/out/${CHANGELOG_FILE:-changelog.yaml}',
       '--overwrite-output-file=${OVERWRITE_OUT:-false}',
       '--diffTypes=${DIFF_TYPES}',
