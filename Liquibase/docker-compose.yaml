@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  liquibase-update:
+    image: liquibase/liquibase
+    container_name: liquibase-update
+    network_mode: host
+    volumes:
+        - "./in/${MASTER_CHANGELOG_FILE:-master_changelog.yaml}:/liquibase/${MASTER_CHANGELOG_FILE:-master_changelog.yaml}"
+        - ./in/changelogs:/liquibase/changelog
+    profiles:
+      - update
+    command: [
+      '--url=${DB_HOST}',
+      '--username=${DB_USER}',
+      '--password=${DB_PASS}',
+      '--contexts=$LIQUIBASE_CONTEXTS',
+      '--log-level=${LOG_LEVEL-warn}',
+      '--changelog-file=${MASTER_CHANGELOG_FILE:-master_changelog.yaml}',
+      'update'
+     ]
+
+  liquibase-generate:
+    image: liquibase/liquibase
+    container_name: liquibase-generate
+    network_mode: host
+    volumes:
+        - ./out:/tmp/out
+    profiles:
+      - generate
+    command: [
+      '--url=${DB_HOST}',
+      '--username=${DB_USER}',
+      '--password=${DB_PASS}',
+      '--contexts=$LIQUIBASE_CONTEXTS',
+      '--log-level=${LOG_LEVEL-warn}',
+      '--data-output-directory=${OUT_DIR}',
+      '--changelog-file=/tmp/out/${CHANGELOG_FILE:-changelog.yaml}',
+      '--overwrite-output-file=${OVERWRITE_OUT:-false}',
+      '--diffTypes=${DIFF_TYPES}',
+      'generate-changelog'
+     ]
+    
+  liquibase-rollback:
+    image: liquibase/liquibase
+    container_name: liquibase-rollback
+    network_mode: host
+    volumes:
+        - "./in/${MASTER_CHANGELOG_FILE:-master_changelog.yaml}:/liquibase/${MASTER_CHANGELOG_FILE:-master_changelog.yaml}"
+        - ./in/changelogs:/liquibase/changelog
+    profiles:
+      - rollback
+    command: [
+      '--url=${DB_HOST}',
+      '--username=${DB_USER}',
+      '--password=${DB_PASS}',
+      '--contexts=$LIQUIBASE_CONTEXTS',
+      '--log-level=${LOG_LEVEL-warn}',
+      '--changelog-file=${MASTER_CHANGELOG_FILE:-master_changelog.yaml}',
+      'rollback-count',
+      '--count=${ROLLBACK_COUNT}'
+     ]

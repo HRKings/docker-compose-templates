@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1697495771400-1
+      author: hrkings (generated)
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: STRING
+            commentLineStartsWith: "#"
+            encoding: UTF-8
+            file: data/0002-ulid_test.csv
+            quotchar: '"'
+            separator: ","
+            tableName: ulid_test
+        - rollback:
+            - sql:
+                sql: TRUNCATE TABLE ulid_test;
