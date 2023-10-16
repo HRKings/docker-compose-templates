@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1697495000066-1
+      author: hrkings (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: ulid_test_pkey
+                  defaultValueComputed: gen_ulid()
+                  name: id
+                  type: ULID
+            tableName: ulid_test

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 0000-extensions.yaml
+  - include:
+      file: 0001-initial.yaml
+  - include:
+      file: 0002-seed.yaml

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1697495000000-1
+      author: hrkings
+      changes:
+        - sqlFile:
+            path: data/0000-extensions.sql
+      rollback:
+        - sqlFile:
+            path: data/0000-extensions.sql.rollback
