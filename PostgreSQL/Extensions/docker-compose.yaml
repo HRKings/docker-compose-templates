@@ -13,6 +13,7 @@ services:
     volumes:
        - ./postgres:/data/postgres
        - ./postgres.conf:/etc/postgresql/postgresql.conf
+       - ./init_sql:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     restart: unless-stopped
