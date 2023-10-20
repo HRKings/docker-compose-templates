@@ -4,6 +4,7 @@ services:
   scylla:
       container_name: scylla
       image: scylladb/scylla
+      command: --smp ${SCYLLA_CORES:-1} --developer-mode ${SCYLLA_DEVELOPER_MODE:-1}
       ports:
         - "9042:9042"
         - "9160:9160"
