@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  migrate-update:
+    image: migrate/migrate
+    container_name: migrate-update
+    network_mode: host
+    volumes:
+        - ./migrations:/migrations
+    profiles:
+      - update
+    command: [
+      '-path=/migrations/',
+      '-database=${DB_HOST}',
+      'up'
+     ]
+
+  migrate-rollback:
+    image: migrate/migrate
+    container_name: migrate-rollback
+    network_mode: host
+    volumes:
+        - ./migrations:/migrations
+    profiles:
+      - rollback
+    command: [
+      '-path=/migrations/',
+      '-database=${DB_HOST}',
+      'down',
+      '${ROLLBACK_COUNT}'
+    ]

@@ -1,0 +1,1 @@
+DELETE TABLE IF EXISTS ulid_test;
