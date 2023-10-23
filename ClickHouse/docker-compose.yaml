@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    user: "1000:1000"
+    container_name: clickhouse
+    network_mode: host
+    environment:
+      - CLICKHOUSE_USER=clickhouse
+      - CLICKHOUSE_PASSWORD=password
+    volumes:
+      - ./ingestion:/var/lib/clickhouse/user_files
+      - ./clickhouse:/var/lib/clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
