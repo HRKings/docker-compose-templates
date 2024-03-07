@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+    meilisearch:
+        image: getmeili/meilisearch:v1.6.2
+        volumes:
+            - ./meili_data:/meili_data
+        environment:
+          - MEILI_MASTER_KEY=PLACE_THE_MASTER_KEY_HERE
+        ports:
+            - 7700:7700
