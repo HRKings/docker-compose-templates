@@ -14,6 +14,7 @@ This custom dockerfile contains some extensions that might be useful in producti
 - [tablefunc](https://www.postgresql.org/docs/current/tablefunc.html): crosstab and random normal distribution
 - [hstore](https://www.postgresql.org/docs/current/hstore.html): store key/value pairs on a column
 - [fuzzystrmatch](https://www.postgresql.org/docs/current/fuzzystrmatch.html): provides fuzzy string matching and distance based string search
+- [tsm_system_rows](https://www.postgresql.org/docs/current/tsm-system-rows.html): allows the `TABLESAMPLE` select clause to return a specific amount of rows
 
 # Custom functions
 
