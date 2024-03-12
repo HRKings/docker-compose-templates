@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  typesense:
+    image: typesense/typesense:0.25.2
+    container_name: typesense
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_API_KEY: ${TYPESENSE_API_KEY:-APIKEYHERE}
+    command: '--enable-cors'
+    volumes:
+      - ./typesense-data:/data
+    ports:
+      - 8108:8108
+    restart: on-failure
