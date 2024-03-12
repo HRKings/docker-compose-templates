@@ -8,4 +8,4 @@ services:
         - "9042:9042"
       volumes:
         - ./cassandra:/var/lib/cassandra
-      restart: unless-stopped
+      restart: on-failure

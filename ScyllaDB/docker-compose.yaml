@@ -10,4 +10,4 @@ services:
         - "9160:9160"
       volumes:
         - ./scylla:/var/lib/scylla
-      restart: unless-stopped
+      restart: on-failure

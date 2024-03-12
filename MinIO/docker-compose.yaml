@@ -19,4 +19,4 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-    restart: unless-stopped
+    restart: on-failure

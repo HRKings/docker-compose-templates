@@ -12,4 +12,4 @@ services:
        - ./open_observe:/data
     ports:
       - "5080:5080"
-    restart: unless-stopped
+    restart: on-failure

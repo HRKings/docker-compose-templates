@@ -15,4 +15,4 @@ services:
     ports:
       - 7474:7474
       - 7687:7687
-    restart: unless-stopped
+    restart: on-failure

@@ -9,3 +9,4 @@ services:
           - MEILI_MASTER_KEY=PLACE_THE_MASTER_KEY_HERE
         ports:
             - 7700:7700
+        restart: on-failure

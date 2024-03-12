@@ -16,4 +16,4 @@ services:
        - ./init_sql:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    restart: on-failure
