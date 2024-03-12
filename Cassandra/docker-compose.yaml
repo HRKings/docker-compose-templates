@@ -2,10 +2,10 @@ version: "3.9"
 
 services:
   cassandra:
-      container_name: cassandra
       image: cassandra
-      ports:
-        - "9042:9042"
+      container_name: cassandra
       volumes:
         - ./cassandra:/var/lib/cassandra
+      ports:
+        - 9042:9042
       restart: on-failure

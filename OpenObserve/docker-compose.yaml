@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   open_observe:
-    container_name: open_observe
     image: public.ecr.aws/zinclabs/openobserve:latest
+    container_name: open_observe
     environment:
       ZO_ROOT_USER_EMAIL: open@observe.com
       ZO_ROOT_USER_PASSWORD: password
@@ -11,5 +11,5 @@ services:
     volumes:
        - ./open_observe:/data
     ports:
-      - "5080:5080"
+      - 5080:5080
     restart: on-failure

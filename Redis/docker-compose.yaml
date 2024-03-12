@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   redis:
-    container_name: redis
     image: redis:alpine
+    container_name: redis
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD:-password}
     command: /bin/sh -c 'redis-server --appendonly yes --requirepass "$${REDIS_PASSWORD}"'

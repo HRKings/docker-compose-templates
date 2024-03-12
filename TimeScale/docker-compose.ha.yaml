@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   timescale:
-    container_name: timescale
     image: timescale/timescaledb-ha:pg16-latest
+    container_name: timescale
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
@@ -11,5 +11,5 @@ services:
     volumes:
         - ./postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - 5432:5432
     restart: on-failure
