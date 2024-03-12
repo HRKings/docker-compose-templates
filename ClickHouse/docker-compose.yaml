@@ -7,8 +7,8 @@ services:
     user: 1000:1000
     network_mode: host
     environment:
-      - CLICKHOUSE_USER=clickhouse
-      - CLICKHOUSE_PASSWORD=password
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: password
     volumes:
       - ./ingestion:/var/lib/clickhouse/user_files
       - ./clickhouse:/var/lib/clickhouse
