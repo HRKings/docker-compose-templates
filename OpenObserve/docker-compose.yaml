@@ -9,7 +9,7 @@ services:
       ZO_ROOT_USER_PASSWORD: password
       ZO_DATA_DIR: /data
     volumes:
-       - ./open_observe:/data
+      - ./open_observe:/data
     ports:
       - 5080:5080
     restart: on-failure

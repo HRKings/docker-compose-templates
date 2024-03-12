@@ -1,13 +1,13 @@
-version: '3.9'
+version: "3.9"
 
 services:
-    meilisearch:
-        image: getmeili/meilisearch:v1.6.2
-        container_name: meilisearch
-        environment:
-          - MEILI_MASTER_KEY=PLACE_THE_MASTER_KEY_HERE
-        volumes:
-            - ./meili_data:/meili_data
-        ports:
-            - 7700:7700
-        restart: on-failure
+  meilisearch:
+    image: getmeili/meilisearch:v1.6.2
+    container_name: meilisearch
+    environment:
+      - MEILI_MASTER_KEY=PLACE_THE_MASTER_KEY_HERE
+    volumes:
+      - ./meili_data:/meili_data
+    ports:
+      - 7700:7700
+    restart: on-failure

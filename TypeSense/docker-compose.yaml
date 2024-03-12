@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   typesense:
@@ -7,7 +7,7 @@ services:
     environment:
       TYPESENSE_DATA_DIR: /data
       TYPESENSE_API_KEY: ${TYPESENSE_API_KEY:-APIKEYHERE}
-    command: '--enable-cors'
+    command: "--enable-cors"
     volumes:
       - ./typesense-data:/data
     ports:

@@ -5,7 +5,7 @@ services:
     image: qdrant/qdrant:latest
     container_name: qdrant
     volumes:
-        - ./qdrant_data:/qdrant_data
+      - ./qdrant_data:/qdrant_data
     ports:
       - 6333:6333
       - 6334:6334

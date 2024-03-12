@@ -5,8 +5,8 @@ services:
     image: mongo:latest
     container_name: mongodb
     environment:
-       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-mongo}
-       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-mongo}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password}
     volumes:
       - ./mongodb:/data/db
     ports:
