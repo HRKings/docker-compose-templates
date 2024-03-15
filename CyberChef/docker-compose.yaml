@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  cyberchef:
+    image: ghcr.io/gchq/cyberchef:latest
+    container_name: cyberchef
+    ports:
+      - 8080:80
+    restart: on-failure
