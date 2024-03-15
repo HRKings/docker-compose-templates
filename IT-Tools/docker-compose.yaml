@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  it-tools:
+    image: corentinth/it-tools:latest
+    container_name: it-tools
+    ports:
+      - 8081:80
+    restart: on-failure
