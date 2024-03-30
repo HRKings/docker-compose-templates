@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  grafana-otel-lgtm:
+    container_name: grafana-otel-lgtm
+    image: grafana/otel-lgtm
+    ports:
+      - 4318:4318
+      - 4317:4317
+      - 3000:3000
+    restart: on-failure
