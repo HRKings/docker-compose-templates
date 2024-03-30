@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  influxdb2:
+    container_name: influxdb2
+    image: influxdb:2-alpine
+    environment:
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUXDB_INITIAL_BUCKET:-initial_bucket}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUXDB_ORG_NAME:-influxdb}
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USER:-influxdb}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_PASSWORD:-password}
+      DOCKER_INFLUXDB_INIT_MODE: setup
+    volumes:
+      - ./config:/etc/influxdb2
+      - ./data:/var/lib/influxdb2
+    ports:
+      - 8086:8086
+    restart: on-failure
