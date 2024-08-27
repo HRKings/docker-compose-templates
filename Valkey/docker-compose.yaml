@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  valkey:
+    image: valkey/valkey:alpine
+    container_name: valkey
+    environment:
+      VALKEY_PASSWORD: ${VALKEY_PASSWORD:-password}
+    command: /bin/sh -c 'valkey-server --appendonly yes --requirepass "$${VALKEY_PASSWORD}"'
+    volumes:
+      - ./valkey:/data
+    ports:
+      - "6379:6379"
+    restart: on-failure
