@@ -12,6 +12,20 @@ RETURNS bool AS $$
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 COMMENT ON FUNCTION is_ulid_within_day IS 'This function checks if a given ULID timestamp DATE part is the same of the provided timestamp';
 
+CREATE OR REPLACE FUNCTION is_ulid_within_interval(ulid, TIMESTAMP, INTERVAL)
+    RETURNS bool AS $$
+SELECT $1 >= $2::ulid
+    AND $1 <= ($2 + $3)::ulid
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+COMMENT ON FUNCTION is_ulid_within_interval(ulid, TIMESTAMP, INTERVAL) IS 'This function checks if a given ULID is within the interval starting on provided timestamp';
+
+CREATE OR REPLACE FUNCTION is_ulid_within_interval(ulid, TIMESTAMPTZ, INTERVAL)
+    RETURNS bool AS $$
+SELECT $1 >= $2::ulid
+    AND $1 <= ($2 + $3)::ulid
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+COMMENT ON FUNCTION is_ulid_within_interval(ulid, TIMESTAMPTZ, INTERVAL) IS 'This function checks if a given ULID is within the interval starting on provided timestamp';
+
 -- Easy filter of timestamps by one day
 CREATE OR REPLACE FUNCTION is_timestamp_within_day(TIMESTAMP WITHOUT TIME ZONE, DATE)
 RETURNS bool AS $$
