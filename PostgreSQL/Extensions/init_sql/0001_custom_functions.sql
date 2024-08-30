@@ -26,4 +26,20 @@ RETURNS bool AS $$
     AND $1 < ($2 + INTERVAL '1 day')
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 COMMENT ON FUNCTION is_timestamp_within_day(TIMESTAMP WITH TIME ZONE, DATE) IS 'This function checks if a given timestamp DATE part is the same of the provided timestamp';
---
+
+-- Easy filter of timestamps by interval
+CREATE OR REPLACE FUNCTION is_timestamp_within_interval(TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE, INTERVAL)
+    RETURNS bool AS
+$$
+SELECT $1 >= $2
+          AND $1 < ($2 + $3);
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+COMMENT ON FUNCTION is_timestamp_within_interval(TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE, INTERVAL) IS 'This function checks if a given timestamp is within the interval starting on provided timestamp';
+
+CREATE OR REPLACE FUNCTION is_timestamp_within_interval(TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH TIME ZONE, INTERVAL)
+    RETURNS bool AS
+$$
+SELECT $1 >= $2
+          AND $1 < ($2 + $3);
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+COMMENT ON FUNCTION is_timestamp_within_interval(TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH TIME ZONE, INTERVAL) IS 'This function checks if a given timestamp is within the interval starting on provided timestamp';
