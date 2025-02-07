@@ -1,0 +1,99 @@
+services:
+  ### Prefect Database
+  database:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=prefect
+    expose:
+      - 5432
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    profiles: ["server", "worker", "minio"]
+
+  ### MinIO for flow storage
+  minio:
+    image: minio/minio:latest
+    entrypoint:
+      [
+        "minio",
+        "server",
+        "--address",
+        "0.0.0.0:9000",
+        "--console-address",
+        "0.0.0.0:9001",
+        "/data",
+      ]
+    volumes:
+      - "./data/minio:/data"
+    ports:
+      - 9000:9000
+      - 9001:9001
+    profiles: ["minio"]
+
+  ### Prefect Server API and UI
+  server:
+    build:
+      context: .
+      dockerfile: Server.Dockerfile
+    volumes:
+      - ./data/prefect:/root/.prefect
+    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]
+    environment:
+      - PREFECT_UI_URL=http://127.0.0.1:4200/api
+      - PREFECT_API_URL=http://127.0.0.1:4200/api
+      # If you want to access Prefect Server UI from anywhere other than the Docker host machine, you will need to change
+      # PREFECT_UI_URL and PREFECT_API_URL to match the external hostname/IP of the host machine. For example:
+      #- PREFECT_UI_URL=http://external-ip:4200/api
+      #- PREFECT_API_URL=http://external-ip:4200/api
+      - PREFECT_SERVER_API_HOST=0.0.0.0
+      - PREFECT_API_DATABASE_CONNECTION_URL=postgresql+asyncpg://postgres:postgres@database:5432/prefect
+      # If you want to turn off task caching, set this value to false
+      - PREFECT_RESULTS_PERSIST_BY_DEFAULT=true
+    ports:
+      - 4200:4200
+    depends_on:
+      - database
+    profiles: ["server", "worker", "minio"]
+
+  ## Prefect Worker
+  worker:
+    build:
+      context: .
+      dockerfile: Worker.Dockerfile
+    entrypoint:
+      [
+        "/opt/prefect/entrypoint.sh",
+        "prefect",
+        "worker",
+        "start",
+        "-p",
+        "YOUR_WORK_POOL_NAME",
+        "-t",
+        "process",
+      ]
+    depends_on:
+      - server
+    restart: on-failure:3
+    environment:
+      - PREFECT_API_URL=http://server:4200/api
+    profiles: ["worker"]
+
+  ### Prefect CLI
+  cli:
+    build:
+      context: .
+      dockerfile: Worker.Dockerfile
+    entrypoint: "bash"
+    working_dir: "/root/flows"
+    volumes:
+      - ./data/flows:/root/flows
+    environment:
+      - PREFECT_API_URL=http://server:4200/api
+    profiles: ["cli"]
+
+networks:
+  default:
+    name: prefect-network
