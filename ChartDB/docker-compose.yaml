@@ -1,0 +1,9 @@
+services:
+  chartdb:
+    container_name: chartdb
+    image: ghcr.io/chartdb/chartdb:latest
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-NOAIKEY}
+    ports:
+      - 8080:80
+    restart: on-failure
