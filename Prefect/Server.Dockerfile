@@ -4,4 +4,4 @@ COPY pyproject.toml .
 
 RUN uv sync
 
-ENTRYPOINT ["uv", "run"]
+ENTRYPOINT ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]

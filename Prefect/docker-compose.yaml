@@ -29,8 +29,8 @@ services:
     volumes:
       - "./data/minio:/data"
     ports:
-      - 9000:9000
-      - 9001:9001
+      - "9000:9000"
+      - "9001:9001"
     profiles: ["minio"]
 
   ### Prefect Server API and UI
@@ -40,20 +40,24 @@ services:
       dockerfile: Server.Dockerfile
     volumes:
       - ./data/prefect:/root/.prefect
-    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]
     environment:
-      - PREFECT_UI_URL=http://127.0.0.1:4200/api
+      - PREFECT_SERVER_API_PORT=4200
+      - PREFECT_UI_URL=http://127.0.0.1:4200
       - PREFECT_API_URL=http://127.0.0.1:4200/api
       # If you want to access Prefect Server UI from anywhere other than the Docker host machine, you will need to change
       # PREFECT_UI_URL and PREFECT_API_URL to match the external hostname/IP of the host machine. For example:
-      #- PREFECT_UI_URL=http://external-ip:4200/api
+      #- PREFECT_UI_URL=http://external-ip:4200
       #- PREFECT_API_URL=http://external-ip:4200/api
+      #- PREFECT_SERVER_API_HOST=external-ip
       - PREFECT_SERVER_API_HOST=0.0.0.0
       - PREFECT_API_DATABASE_CONNECTION_URL=postgresql+asyncpg://postgres:postgres@database:5432/prefect
       # If you want to turn off task caching, set this value to false
       - PREFECT_RESULTS_PERSIST_BY_DEFAULT=true
+      # Activate Prometheus metrics endpoint
+      - PREFECT_SERVER_METRICS_ENABLED=true
+      - PREFECT_API_ENABLE_METRICS=true
     ports:
-      - 4200:4200
+      - "4200:4200"
     depends_on:
       - database
     profiles: ["server", "worker", "minio"]
@@ -63,22 +67,13 @@ services:
     build:
       context: .
       dockerfile: Worker.Dockerfile
-    entrypoint:
-      [
-        "/opt/prefect/entrypoint.sh",
-        "prefect",
-        "worker",
-        "start",
-        "-p",
-        "YOUR_WORK_POOL_NAME",
-        "-t",
-        "process",
-      ]
     depends_on:
       - server
     restart: on-failure:3
     environment:
       - PREFECT_API_URL=http://server:4200/api
+      - WORKER_NAME=docker_worker
+      - WORKER_POOL_NAME=docker_worker_pool
     profiles: ["worker"]
 
   ### Prefect CLI
