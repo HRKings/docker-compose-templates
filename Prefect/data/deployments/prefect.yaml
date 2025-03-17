@@ -1,0 +1,24 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: flows
+prefect-version: 3.1.15
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: hello_world_parallel
+  version: 0.0.1
+  tags: [ "hello_world" ]
+  description: Runs a simple hello world X times, but does so in parallel
+  schedule:
+    - cron: "0 0 * * *"
+      timezone: "UTC"
+      active: true
+  entrypoint: ../flows/hello_world_flow_parallel.py:main
+  parameters:
+    num_worlds: 10
+  work_pool:
+    name: docker_work_pool
+    work_queue_name: hello_world

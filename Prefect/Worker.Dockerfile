@@ -1,10 +1,11 @@
 FROM prefecthq/prefect:3-latest
 
 ENV WORKER_NAME = "docker_worker"
-ENV WORKER_POOL_NAME = "docker_worker_pool"
+ENV WORKER_POOL_NAME = "docker_work_pool"
 
-RUN uv pip install prefect-aws
-RUN uv pip install faker
+COPY pyproject.toml .
+
+RUN uv sync
 
 ENTRYPOINT /opt/prefect/entrypoint.sh prefect \
     worker start \

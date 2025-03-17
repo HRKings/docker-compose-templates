@@ -22,6 +22,16 @@ def say_hello(name: str):
 def say_goodbye(name: str):
     print(f"logging for {name}")
 
+def generate_flow_run_name_entrypoint() -> str:
+    flow_name = flow_run.flow_name
+
+    parameters = flow_run.parameters
+    num_worlds: int = parameters["num_worlds"]
+
+    date = datetime.datetime.now(datetime.timezone.utc)
+
+    return f"{flow_name}#{num_worlds}@{date:%Y-%m-%d.%H:%M:%S}"
+
 def generate_flow_run_name() -> str:
     flow_name = flow_run.flow_name
 
@@ -30,4 +40,4 @@ def generate_flow_run_name() -> str:
 
     date = datetime.datetime.now(datetime.timezone.utc)
 
-    return f"{flow_name}#{len(names)}@{date:%Y-%m-%d.%H:%M:%S}"
+    return f"{flow_name}@{date:%Y-%m-%d.%H:%M:%S}"

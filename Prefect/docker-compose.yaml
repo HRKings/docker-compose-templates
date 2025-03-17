@@ -40,6 +40,8 @@ services:
       dockerfile: Server.Dockerfile
     volumes:
       - ./data/prefect:/root/.prefect
+      - ./data/flows:/root/flows
+      - ./data/deployments:/root/deployments
     environment:
       - PREFECT_SERVER_API_PORT=4200
       - PREFECT_UI_URL=http://127.0.0.1:4200
@@ -70,10 +72,13 @@ services:
     depends_on:
       - server
     restart: on-failure:3
+    volumes:
+      - ./data/flows:/root/flows
+      - ./data/deployments:/root/deployments
     environment:
       - PREFECT_API_URL=http://server:4200/api
       - WORKER_NAME=docker_worker
-      - WORKER_POOL_NAME=docker_worker_pool
+      - WORKER_POOL_NAME=docker_work_pool
     profiles: ["worker"]
 
   ### Prefect CLI
@@ -85,6 +90,7 @@ services:
     working_dir: "/root/flows"
     volumes:
       - ./data/flows:/root/flows
+      - ./data/deployments:/root/deployments
     environment:
       - PREFECT_API_URL=http://server:4200/api
     profiles: ["cli"]
