@@ -1,0 +1,4 @@
+mage-ai[all]
+duckdb
+polars
+faker
