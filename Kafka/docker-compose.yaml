@@ -1,7 +1,7 @@
 services:
   kafka:
     container_name: kafka
-    image: apache/kafka:latest
+    image: apache/kafka-native:latest
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
