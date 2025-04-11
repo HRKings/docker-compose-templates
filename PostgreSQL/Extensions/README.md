@@ -50,3 +50,15 @@ SELECT * FROM example_table WHERE is_timestamp_within_day(timestamp_column, '200
 ```
 
 This works on both timestamp with and without timezone
+
+### Compact conditional
+
+Basically a CASE statement/expression but condensed into a single function
+
+```sql
+SELECT iif(true, 'EQUAL', 'NOT EQUAL'); -- This will return 'EQUAL'
+```
+
+```sql
+SELECT iif(false, 'EQUAL'); -- This will return NULL, note that the else condition that would return NULL is omitted
+```

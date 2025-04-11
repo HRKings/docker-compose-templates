@@ -57,3 +57,22 @@ SELECT $1 >= $2
     AND $1 < ($2 + $3);
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 COMMENT ON FUNCTION is_timestamp_within_interval(TIMESTAMP WITH TIME ZONE, TIMESTAMP WITH TIME ZONE, INTERVAL) IS 'This function checks if a given timestamp is within the interval starting on provided timestamp';
+
+CREATE OR REPLACE FUNCTION iif(
+	condition BOOLEAN,              -- IF condition
+	result_when_true ANYCOMPATIBLE, -- THEN
+	result_when_false ANYCOMPATIBLE -- ELSE
+) RETURNS ANYCOMPATIBLE AS
+$$
+	SELECT CASE WHEN condition THEN result_when_true ELSE result_when_false END
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+COMMENT ON FUNCTION iif(BOOLEAN, ANYCOMPATIBLE, ANYCOMPATIBLE) IS 'This function is exactly the same as using a case expression, but more compact';
+
+CREATE OR REPLACE FUNCTION iif(
+	condition BOOLEAN,             -- IF condition
+	result_when_true ANYCOMPATIBLE -- THEN
+) RETURNS ANYCOMPATIBLE AS
+$$
+	SELECT CASE WHEN condition THEN result_when_true END
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+COMMENT ON FUNCTION iif(BOOLEAN, ANYCOMPATIBLE) IS 'This function is exactly the same as using a case expression, but more compact. Version with omitting the else return';
