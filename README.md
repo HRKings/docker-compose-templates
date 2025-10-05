@@ -10,6 +10,7 @@ Apache Cassandra  | NoSQL Database       | Distributed, wide column store, NoSQL
 ChartDB           | Tool                 | Database schema diagrams visualizer
 ClickHouse        | OLAP Database        | Database for analytics, observability and data warehousing
 CouchDB           | NoSQL Database       | Document oriented
+DbMate            | SQL Migration Tool   | Database migrations CLI that uses plain SQL in a single file
 CyberChef         | Tool                 | A web app for encryption, encoding, compression and data analysis
 Grafana OTeL LGTM | Observability        | OpenTelemetry backend in a Docker image
 InfluxDB          | Time Series Database | Time Series Database Platform Optimized for Speed and Scale
