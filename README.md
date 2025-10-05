@@ -5,12 +5,13 @@ This is a place where I gather various templates for Docker to run using Compose
 ## What will you find here?
 
 Application       | Type                 | Description
-------------------|----------------------|-----------------------------------------------------------------------------------------------
+------------------|----------------------|---------------------------------------------------------------------------------------------------------
 Apache Cassandra  | NoSQL Database       | Distributed, wide column store, NoSQL database
 ChartDB           | Tool                 | Database schema diagrams visualizer
 ClickHouse        | OLAP Database        | Database for analytics, observability and data warehousing
 CouchDB           | NoSQL Database       | Document oriented
 CyberChef         | Tool                 | A web app for encryption, encoding, compression and data analysis
+FalkorDB          | Graph Database       | A Graph Database that uses GraphBLAS under the hood for its sparse adjacency matrix graph representation
 Grafana OTeL LGTM | Observability        | OpenTelemetry backend in a Docker image
 InfluxDB          | Time Series Database | Time Series Database Platform Optimized for Speed and Scale
 IT-Tools          | Tool                 | Collection of handy online tools for developers

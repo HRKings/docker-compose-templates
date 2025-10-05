@@ -1,0 +1,10 @@
+services:
+  falkordb:
+    container_name: falkordb
+    image: falkordb/falkordb:latest
+    volumes:
+      - ./falkordb:/data
+    ports:
+      - 6379:6379 # Redis-compatible socket
+      - 3000:3000 # WebUI
+    restart: on-failure
