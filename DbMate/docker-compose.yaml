@@ -1,0 +1,48 @@
+services:
+  dbmate-dump:
+    image: ghcr.io/amacneil/dbmate:main
+    container_name: dbmate-dump
+    network_mode: host
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgres://postgres:password@localhost/postgres?sslmode=disable}
+    volumes:
+        - ./dbmate/schema.sql:/db/schema.sql
+    profiles:
+      - dump
+    command: dump
+
+  dbmate-load:
+    image: ghcr.io/amacneil/dbmate:main
+    container_name: dbmate-dump
+    network_mode: host
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgres://postgres:password@localhost/postgres?sslmode=disable}
+    volumes:
+        - ./dbmate/schema.sql:/db/schema.sql
+    profiles:
+      - load
+    command: load
+
+  dbmate-up:
+    image: ghcr.io/amacneil/dbmate:main
+    container_name: dbmate-dump
+    network_mode: host
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgres://postgres:password@localhost/postgres?sslmode=disable}
+    volumes:
+        - ./migrations:/db/migrations
+    profiles:
+      - up
+    command: up
+
+  dbmate-down:
+    image: ghcr.io/amacneil/dbmate:main
+    container_name: dbmate-dump
+    network_mode: host
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgres://postgres:password@localhost/postgres?sslmode=disable}
+    volumes:
+        - ./migrations:/db/migrations
+    profiles:
+      - down
+    command: down
