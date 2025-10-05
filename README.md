@@ -19,6 +19,7 @@ Liquibase         | SQL Migration Tool   | Database change management pipelines
 MailPit           | Email                | Email & SMTP testing tool
 MariaDB           | SQL Database         | A community-developed, commercially supported fork of the MySQL
 Meilisearch       | Search Engine        | RESTful search engine API
+MemGraph          | Graph Database       | Memgraph is an open source graph database built for real-time streaming and compatible with Neo4j
 Migrate           | SQL Migration Tool   | Database migrations CLI that uses plain SQL
 MinIO             | Object Storage       | S3 Compatible Storage
 MongoDB           | NoSQL Database       | Document oriented NoSQL database
