@@ -4,6 +4,10 @@ This custom dockerfile contains some extensions that might be useful in producti
 
 ## Current extensions
 
+- [ULID](https://github.com/pksunkara/pgx_ulid): 128-bit sortable IDs compatible with the existing UUID.
+  - **Note:** PostgreSQL 18 introduced UUIDv7, which works basically the same way of an ULID, but respects the format of the traditional UUID, unlike ULID's Crockford's base32 encoding
+  - ULID and UUID can be converted back and forth like so: `SELECT '01K6RVKMF8FV8R5J5GA84GMKKH'::ulid::uuid;` and `SELECT '0199b1b9-d1e8-7ed1-82c8-b052090a4e71'::uuid::ulid;`
+  - I still recommend ULID because I find it easier to read and having a more compact representation. But, that said, UUIDv7 is more widespread and people tend to like more things that are in the standard library of software.
 
 ## Postgres Contrib Modules
 
