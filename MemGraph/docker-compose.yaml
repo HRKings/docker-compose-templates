@@ -1,0 +1,39 @@
+services:
+  memgraph:
+    image: memgraph/memgraph-mage:latest
+    container_name: memgraph-mage
+    command: ["--log-level=TRACE"]
+    volumes:
+      - mg_lib:/var/lib/memgraph
+      - mg_etc:/etc/memgraph
+    ports:
+      - 7687:7687
+      - 7444:7444
+    restart: on-failure
+
+  lab:
+    image: memgraph/lab:latest
+    container_name: memgraph-lab
+    environment:
+      - QUICK_CONNECT_MG_HOST=memgraph
+      - QUICK_CONNECT_MG_PORT=7687
+    ports:
+      - 3000:3000
+    depends_on:
+      - memgraph
+    restart: on-failure
+
+# We need to create the folders beforehand because of: https://github.com/memgraph/memgraph/issues/1734
+volumes:
+  mg_lib:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './memgraph/data'
+  mg_etc:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './memgraph/config'
